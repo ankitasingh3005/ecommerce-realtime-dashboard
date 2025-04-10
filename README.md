@@ -51,7 +51,7 @@ ecommerce_realtime_pipeline/
 
 ## 🖼️ Dashboard Preview
 
-![E-commerce Dashboard](./Dashboard.png)
+![E-commerce Dashboard Preview](Dashboard.png)
 
 ---
 
@@ -59,7 +59,8 @@ ecommerce_realtime_pipeline/
 
 A high-level visual of the data pipeline:
 
-![Pipeline Architecture](./Pipeline.png)
+![Pipeline Architecture](Pipeline.png)
+
 
 
 # 1. Start Kafka & Zookeeper
