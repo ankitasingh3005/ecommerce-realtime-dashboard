@@ -33,7 +33,7 @@ It’s designed for **hands-on learning** and **portfolio-grade demonstration** 
 
 ## 📂 Project Structure
 
-
+```bash
 ecommerce_realtime_pipeline/
 │
 ├── app.py                  # Streamlit dashboard
@@ -47,20 +47,24 @@ ecommerce_realtime_pipeline/
 │   ├── dashboard.png       # Dashboard screenshot
 │   └── pipeline.png        # System architecture diagram
 └── README.md               # This file
-
+```
 
 ## 🖼️ Dashboard Preview
 
-![E-commerce Dashboard Preview](https://github.com/ankitasingh3005/ecommerce-realtime-dashboard/blob/main/images/Dashboard.png?raw=true)
+<p align="center">
+  <img src="images/Dashboard.png" alt="E-commerce Dashboard Preview" width="90%">
+</p>
 
 ---
 
 ## 🧩 System Architecture
 
-A high-level visual of the data pipeline:
+<p align="center">
+  <img src="images/Pipeline.png" alt="Real-time Pipeline Architecture" width="90%">
+</p>
 
-![Pipeline Architecture](https://github.com/ankitasingh3005/ecommerce-realtime-dashboard/blob/main/images/Pipeline.png?raw=true)
 
+```bash
 # 1. Start Kafka & Zookeeper
 docker compose up -d
 
@@ -75,18 +79,16 @@ python producer.py
 
 # 5. Launch the dashboard
 streamlit run app.py
-
-
+```
+```bash
 📈 Future Enhancements
 Add login/authentication to dashboard
-
 Add alerting/threshold triggers
-
 Extend to S3 or BigQuery storage
-
 Add chatbot interface (e.g., Ask your orders using LLMs)
 
 
 🙌 Author
 Ankita Singh
 🎓 MS in Business Analytics & Information Systems
+```
