@@ -80,15 +80,17 @@ python producer.py
 # 5. Launch the dashboard
 streamlit run app.py
 ```
-```bash
+
 📈 Future Enhancements
+```bash
 Add login/authentication to dashboard
 Add alerting/threshold triggers
 Extend to S3 or BigQuery storage
 Add chatbot interface (e.g., Ask your orders using LLMs)
-
+```
 
 🙌 Author
+```bash
 Ankita Singh
 🎓 MS in Business Analytics & Information Systems
 ```
