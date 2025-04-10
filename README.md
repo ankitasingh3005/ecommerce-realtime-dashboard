@@ -53,6 +53,7 @@ ecommerce_realtime_pipeline/
 
 ![E-commerce Dashboard Preview](https://github.com/ankitasingh3005/ecommerce-realtime-dashboard/blob/main/images/Dashboard.png?raw=true)
 
+
 ---
 
 ## 🧩 System Architecture
