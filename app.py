@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import psycopg2
@@ -39,16 +38,26 @@ st.sidebar.header("🔍 Filter Orders")
 start_date = st.sidebar.date_input("Start Date", df['date'].min())
 end_date = st.sidebar.date_input("End Date", df['date'].max())
 
-regions = st.sidebar.multiselect("🌍 Region", sorted(df['region'].unique()), default=sorted(df['region'].unique()))
-statuses = st.sidebar.multiselect("📦 Status", sorted(df['status'].unique()), default=sorted(df['status'].unique()))
-products = st.sidebar.multiselect("🛒 Product", sorted(df['product_name'].unique()), default=sorted(df['product_name'].unique()))
+# Checkbox-style filters using data_editor
+region_table = pd.DataFrame({"Region": sorted(df['region'].unique()), "Include": True})
+selected_region_table = st.sidebar.data_editor(region_table, hide_index=True, use_container_width=True)
+selected_regions = selected_region_table[selected_region_table["Include"]]["Region"].tolist()
 
+status_table = pd.DataFrame({"Status": sorted(df['status'].unique()), "Include": True})
+selected_status_table = st.sidebar.data_editor(status_table, hide_index=True, use_container_width=True)
+selected_statuses = selected_status_table[selected_status_table["Include"]]["Status"].tolist()
+
+product_table = pd.DataFrame({"Product": sorted(df['product_name'].unique()), "Include": True})
+selected_product_table = st.sidebar.data_editor(product_table, hide_index=True, use_container_width=True)
+selected_products = selected_product_table[selected_product_table["Include"]]["Product"].tolist()
+
+# Apply filters
 filtered_df = df[
     (df['date'] >= start_date) &
     (df['date'] <= end_date) &
-    (df['region'].isin(regions)) &
-    (df['status'].isin(statuses)) &
-    (df['product_name'].isin(products))
+    (df['region'].isin(selected_regions)) &
+    (df['status'].isin(selected_statuses)) &
+    (df['product_name'].isin(selected_products))
 ]
 
 # Summary metrics
@@ -123,17 +132,6 @@ ax5.set_xlabel("Region")
 ax5.tick_params(axis='x', labelrotation=30)
 ax5.bar_label(bars.containers[0], fmt="$%.0f")
 st.pyplot(fig5)
-
-# Revenue Over Time (if multiple dates available)
-if filtered_df['date'].nunique() > 1:
-    st.markdown("### 📅 Revenue Over Time")
-    rev_by_date = filtered_df.groupby('date')['revenue'].sum()
-    fig6, ax6 = plt.subplots(figsize=(12, 4))
-    ax6.plot(rev_by_date.index, rev_by_date.values, marker='o', color=custom_palette[0])
-    ax6.set_ylabel("Revenue")
-    ax6.set_xlabel("Date")
-    ax6.set_title("Daily Revenue Trend")
-    st.pyplot(fig6)
 
 # Data Table and Download
 st.markdown("### 📄 Full Dataset View")
