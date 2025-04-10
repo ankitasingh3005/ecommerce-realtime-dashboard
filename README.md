@@ -51,14 +51,14 @@ ecommerce_realtime_pipeline/
 
 ## 🖼️ Dashboard Preview
 
-![E-commerce Dashboard Preview](Dashboard.png)
+![E-commerce Dashboard Preview](images/dashboard.png)
 ---
 
 ## 🧩 System Architecture
 
 A high-level visual of the data pipeline:
 
-![Pipeline Architecture](Pipeline.png)
+![Pipeline Architecture](images/Pipeline.png)
 
 
 
