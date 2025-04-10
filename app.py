@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import psycopg2
@@ -5,21 +6,18 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib as mpl
 
-# Set formal font
+# Set formal font and whitegrid style
 mpl.rcParams['font.family'] = 'DejaVu Sans'
 sns.set(style="whitegrid")
 
-# Streamlit page config
+# Streamlit config
 st.set_page_config(page_title="📦 E-commerce Dashboard", layout="wide", page_icon="🛒")
-
-# Custom color palette
 custom_palette = ["#FF6F61", "#6B5B95", "#88B04B", "#F7CAC9", "#92A8D1"]
 
-# Title
 st.title("🛍️ E-commerce Orders Dashboard")
 st.markdown("Track performance, customers, revenue & trends for your e-commerce business.")
 
-# Database Connection
+# Database connection
 @st.cache_resource
 def get_connection():
     return psycopg2.connect(
@@ -36,17 +34,15 @@ df['timestamp'] = pd.to_datetime(df['timestamp'])
 df['date'] = df['timestamp'].dt.date
 df['revenue'] = df['price'] * df['quantity']
 
-# Sidebar Filters
+# Sidebar filters
 st.sidebar.header("🔍 Filter Orders")
 start_date = st.sidebar.date_input("Start Date", df['date'].min())
 end_date = st.sidebar.date_input("End Date", df['date'].max())
 
-# Region Filter
-regions = st.sidebar.multiselect("🌍 Region", options=sorted(df['region'].unique()), default=sorted(df['region'].unique()))
-statuses = st.sidebar.multiselect("📦 Status", options=sorted(df['status'].unique()), default=sorted(df['status'].unique()))
-products = st.sidebar.multiselect("🛒 Product", options=sorted(df['product_name'].unique()), default=sorted(df['product_name'].unique()))
+regions = st.sidebar.multiselect("🌍 Region", sorted(df['region'].unique()), default=sorted(df['region'].unique()))
+statuses = st.sidebar.multiselect("📦 Status", sorted(df['status'].unique()), default=sorted(df['status'].unique()))
+products = st.sidebar.multiselect("🛒 Product", sorted(df['product_name'].unique()), default=sorted(df['product_name'].unique()))
 
-# Apply filters
 filtered_df = df[
     (df['date'] >= start_date) &
     (df['date'] <= end_date) &
@@ -55,7 +51,7 @@ filtered_df = df[
     (df['product_name'].isin(products))
 ]
 
-# --- Summary Metrics ---
+# Summary metrics
 st.markdown("### 📊 Key Metrics")
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("🧾 Total Orders", len(filtered_df))
@@ -65,14 +61,14 @@ col3.metric("👤 Unique Customers", filtered_df['customer_id'].nunique())
 aov = revenue / len(filtered_df) if len(filtered_df) else 0
 col4.metric("📈 Avg. Order Value", f"${aov:.2f}")
 
-# --- Cancellation Rate ---
+# Cancellation Rate
 cancel_rate = 0
 if len(filtered_df) > 0:
     cancelled = filtered_df[filtered_df['status'].str.lower() == 'cancelled']
     cancel_rate = (len(cancelled) / len(filtered_df)) * 100
 st.metric("❌ Cancellation Rate", f"{cancel_rate:.2f}%")
 
-# --- Top Customers by Revenue ---
+# Top Customers by Revenue
 st.markdown("### 👑 Top Customers by Revenue")
 top_customers = filtered_df.groupby('customer_id')['revenue'].sum().sort_values(ascending=False).head(10)
 fig, ax = plt.subplots(figsize=(10, 5))
@@ -83,11 +79,11 @@ ax.set_ylabel("Customer ID")
 ax.bar_label(bars.containers[0], fmt="$%.0f")
 st.pyplot(fig)
 
-# --- Region-wise Orders ---
+# Region-wise Orders
 st.markdown("### 🌍 Top Regions by Orders")
 region_counts = filtered_df['region'].value_counts().head(10)
 fig2, ax2 = plt.subplots(figsize=(12, 5))
-bars = sns.barplot(x=region_counts.index, y=region_counts.values, ax=ax2, palette=custom_palette)
+bars = sns.barplot(x=region_counts.index, y=region_counts.values, palette=custom_palette, ax=ax2)
 ax2.set_title("Top 10 Regions by Order Count")
 ax2.set_ylabel("Order Count")
 ax2.set_xlabel("Region")
@@ -95,7 +91,7 @@ ax2.tick_params(axis='x', rotation=30)
 ax2.bar_label(bars.containers[0], fmt="%d")
 st.pyplot(fig2)
 
-# --- Order Status Distribution ---
+# Order Status Breakdown
 st.markdown("### 📦 Order Status Breakdown")
 status_counts = filtered_df['status'].value_counts()
 fig3, ax3 = plt.subplots(figsize=(6, 4))
@@ -105,7 +101,7 @@ ax3.set_ylabel("Number of Orders")
 ax3.bar_label(bars.containers[0], fmt="%d")
 st.pyplot(fig3)
 
-# --- Top Products ---
+# Top Products
 st.markdown("### 🛍️ Best-Selling Products")
 top_products = filtered_df.groupby('product_name')['quantity'].sum().sort_values(ascending=False).head(10)
 fig4, ax4 = plt.subplots(figsize=(10, 6))
@@ -116,7 +112,7 @@ ax4.set_ylabel("Product Name")
 ax4.bar_label(bars.containers[0], fmt="%d")
 st.pyplot(fig4)
 
-# --- Revenue by Region ---
+# Revenue by Region
 st.markdown("### 💸 Top Revenue-Generating Regions")
 rev_region = filtered_df.groupby('region')['revenue'].sum().sort_values(ascending=False).head(10)
 fig5, ax5 = plt.subplots(figsize=(12, 5))
@@ -128,7 +124,7 @@ ax5.tick_params(axis='x', labelrotation=30)
 ax5.bar_label(bars.containers[0], fmt="$%.0f")
 st.pyplot(fig5)
 
-# --- Revenue Over Time ---
+# Revenue Over Time (if multiple dates available)
 if filtered_df['date'].nunique() > 1:
     st.markdown("### 📅 Revenue Over Time")
     rev_by_date = filtered_df.groupby('date')['revenue'].sum()
@@ -139,7 +135,7 @@ if filtered_df['date'].nunique() > 1:
     ax6.set_title("Daily Revenue Trend")
     st.pyplot(fig6)
 
-# --- Data Table ---
+# Data Table and Download
 st.markdown("### 📄 Full Dataset View")
 st.dataframe(filtered_df)
 csv = filtered_df.to_csv(index=False).encode("utf-8")
