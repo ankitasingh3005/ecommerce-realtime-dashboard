@@ -51,8 +51,7 @@ ecommerce_realtime_pipeline/
 
 ## 🖼️ Dashboard Preview
 
-![E-commerce Dashboard Preview](https://github.com/ankitasingh3005/ecommerce-realtime-dashboard/blob/main/images/Dashboard.png?raw=true)
-
+![Image](https://github.com/user-attachments/assets/60dd3728-08f4-4a81-99b3-85d0f698ec21)
 
 ---
 
