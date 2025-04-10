@@ -58,7 +58,7 @@ ecommerce_realtime_pipeline/
 
 A high-level visual of the data pipeline:
 
-![Pipeline Architecture](https://github.com/ankitasingh3005/ecommerce-realtime-dashboard/blob/main/images/Pipeline.png?raw=true)
+https://github.com/ankitasingh3005/ecommerce-realtime-dashboard/blob/main/images/Pipeline.png?raw=true
 
 # 1. Start Kafka & Zookeeper
 docker compose up -d
