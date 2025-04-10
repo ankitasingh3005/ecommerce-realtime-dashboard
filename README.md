@@ -63,7 +63,7 @@ ecommerce_realtime_pipeline/
   <img src="images/Pipeline.png" alt="Real-time Pipeline Architecture" width="90%">
 </p>
 
-
+## 🛠️ How to Run the Project
 ```bash
 # 1. Start Kafka & Zookeeper
 docker compose up -d
