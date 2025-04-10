@@ -52,7 +52,6 @@ ecommerce_realtime_pipeline/
 ## 🖼️ Dashboard Preview
 
 ![E-commerce Dashboard Preview](Dashboard.png)
-
 ---
 
 ## 🧩 System Architecture
