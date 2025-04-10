@@ -49,7 +49,8 @@ ecommerce_realtime_pipeline/
 └── README.md               # This file
 
 
-🖼️ Dashboard Preview
+## 🖼️ Dashboard Preview
+
 <img src="Dashboard.png" alt="E-commerce Dashboard Preview" width="90%">
 
 🧩 System Architecture
