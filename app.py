@@ -23,11 +23,11 @@ st.markdown("Track performance, customers, revenue & trends for your e-commerce 
 @st.cache_resource
 def get_connection():
     return psycopg2.connect(
-        host="ecommerce-db.cf0ku0i007rf.us-east-2.rds.amazonaws.com",
-        database="postgres",
-        user="admin123",
-        password="Admin123456admin",
-        port="5432"
+        host=st.secrets["postgres"]["host"],
+        database=st.secrets["postgres"]["database"],
+        user=st.secrets["postgres"]["user"],
+        password=st.secrets["postgres"]["password"],
+        port=st.secrets["postgres"]["port"]
     )
 
 conn = get_connection()
