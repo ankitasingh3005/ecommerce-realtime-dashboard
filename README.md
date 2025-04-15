@@ -2,7 +2,7 @@
 
 Welcome to the **E-commerce Real-Time Dashboard** project!  
 This project simulates a live order processing system for an e-commerce platform using **Kafka**, **PostgreSQL**, and visualizes real-time insights with **Streamlit**.
-
+Dashboard Link - https://ecommerce-realtime-dashboard-euclhzd5rza93mvjabwwtf.streamlit.app/
 ---
 
 ## 🚀 About the Project
